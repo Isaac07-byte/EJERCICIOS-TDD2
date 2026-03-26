@@ -1,6 +1,6 @@
 """Pruebas para la funcion ``sumar_numeros``."""
 
-from suma import sumar_numeros
+from funcionalidades.suma import sumar_numeros
 
 def test_sumar_numeros_exito(monkeypatch, capsys):
     """Prueba una suma exitosa con entradas válidas."""

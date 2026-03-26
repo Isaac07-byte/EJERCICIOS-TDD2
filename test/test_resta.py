@@ -1,6 +1,6 @@
 """Pruebas para la funcion ``restar_numeros``."""
 
-from resta import restar_numeros
+from funcionalidades.resta import restar_numeros
 
 def test_restar_numeros_exito(monkeypatch, capsys):
     """Prueba una resta exitosa con entradas válidas."""
