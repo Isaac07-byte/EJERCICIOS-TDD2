@@ -79,11 +79,6 @@ EJERCICIOS TDD2/
 ├── .gitignore          # Archivos excluidos del control de versiones
 ├── README.md           # Documentación del proyecto
 └── requirements.txt    # Dependencias (pytest==9.0.1)
----
-
-Aquí tienes tu **bitácora completamente corregida, coherente con tu código real y lista para copiar/pegar en Word** 👇
-
----
 
 ## 📝 5. Bitácora Reflexiva
 
