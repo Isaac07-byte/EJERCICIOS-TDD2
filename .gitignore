@@ -1,0 +1,17 @@
+# Entorno virtual (Isaac)
+.venv/
+venv/
+
+# Cache de Python
+__pycache__/
+*.pyc
+
+# Herramientas de Test (Pytest)
+.pytest_cache/
+
+# Editor
+.vscode/
+
+# Sistema
+Thumbs.db
+.DS_Store
