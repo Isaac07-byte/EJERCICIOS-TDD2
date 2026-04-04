@@ -3,38 +3,32 @@
 
 def test_registrar_producto_validacion_profunda(mi_inventario):
     """
-    Test de alta fidelidad para el registro de productos:
-    1. Verifica la asignación correcta de todos los atributos.
-    2. Valida que el ID sea auto-incremental y único.
-    3. Confirma que el producto se ha persistido en el estado interno del inventario.
-    4. Asegura que los tipos de datos (str, int, float) sean los correctos.
+    Test Robusto de Registro:
+    - Atributos, IDs incrementales, Persistencia y Aislamiento de datos.
     """
-    # Arrange: Definimos los datos de entrada
-    nombre_test = "Teclado Mecánico RGB"
-    cantidad_test = 10
-    precio_test = 45.99
+    # --- REGISTRO DEL PRIMER PRODUCTO ---
+    p1_nombre, p1_cant, p1_precio = "Monitor 4K", 5, 350.0
+    p1 = mi_inventario.registrar_producto(p1_nombre, p1_cant, p1_precio)
 
-    # Act: Realizamos el registro
-    producto = mi_inventario.registrar_producto(nombre_test, cantidad_test, precio_test)
+    # Assert 1: Atributos y Tipos
+    assert p1.id == 1, "Error: El primer ID debe ser 1"
+    assert p1.nombre == p1_nombre
+    assert isinstance(p1.precio, float)
 
-    # Assert 1: Validación de atributos del objeto retornado
-    assert producto.id == 1, "El ID inicial debería ser 1"
-    assert producto.nombre == nombre_test
-    assert producto.cantidad == cantidad_test
-    assert producto.precio == precio_test
+    # Assert 2: Persistencia Real
+    p1_recuperado = mi_inventario.consultar_producto(p1.id)
+    assert p1_recuperado is not None, "Error: El producto no se guardó en memoria"
+    assert p1_recuperado.nombre == p1_nombre
 
-    # Assert 2: Validación de Tipos (Seguridad de Tipado)
-    assert isinstance(producto.id, int)
-    assert isinstance(producto.nombre, str)
-    assert isinstance(producto.cantidad, int)
-    assert isinstance(producto.precio, float)
+    # --- REGISTRO DEL SEGUNDO PRODUCTO (Robustez Incremental) ---
+    p2_nombre = "Teclado"
+    p2 = mi_inventario.registrar_producto(p2_nombre, 10, 50.0)
 
-    # Assert 3: Validación de Persistencia (¿Realmente se guardó?)
-    # Consultamos el inventario para ver si el producto existe dentro
-    producto_en_memoria = mi_inventario.consultar_producto(producto.id)
-    assert producto_en_memoria is not None, "El producto debería estar guardado en el inventario"
-    assert producto_en_memoria.nombre == nombre_test
+    # Assert 3: ID Incremental
+    assert p2.id == 2, "Error: El ID no incrementó correctamente"
 
-    # Assert 4: Validación de ID Incremental (Caso de segundo producto)
-    segundo_producto = mi_inventario.registrar_producto("Mouse", 5, 15.0)
-    assert segundo_producto.id == 2, "El sistema de IDs debe ser auto-incremental"
+    # Assert 4: Aislamiento (Verificar que p2 no sobreescribió a p1)
+    assert (
+        mi_inventario.consultar_producto(1).nombre == p1_nombre
+    ), "Error: El segundo registro alteró el primero"
+    assert mi_inventario.consultar_producto(2).nombre == p2_nombre

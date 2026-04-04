@@ -31,6 +31,12 @@ def test_actualizar_cantidad_exitoso_y_consistente(mi_inventario):
     p_en_memoria = mi_inventario.consultar_producto(p.id)
     assert p_en_memoria.cantidad == nueva_cantidad
 
+def test_actualizar_cantidad_error_negativo(mi_inventario):
+    """Valida que no se permitan cantidades negativas al actualizar."""
+    p = mi_inventario.registrar_producto("Laptop", 5, 800.0)
+
+    with pytest.raises(ValueError, match="La cantidad no puede ser negativa"):
+        mi_inventario.actualizar_cantidad(p.id, -10)
 
 def test_actualizar_cantidad_error_producto_inexistente(mi_inventario):
     """
