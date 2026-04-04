@@ -1,3 +1,7 @@
+"""Pruebas para la actualizacion de cantidades en el inventario."""
+
+import pytest
+
 def test_actualizar_cantidad_exitoso_y_consistente(mi_inventario):
     """
     Valida la actualización de stock asegurando:

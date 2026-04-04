@@ -1,3 +1,5 @@
+"""Pruebas para el listado de productos del inventario."""
+
 def test_listar_productos_validar_contenido_y_estado(mi_inventario):
     """
     Test avanzado para verificar que la lista de productos:

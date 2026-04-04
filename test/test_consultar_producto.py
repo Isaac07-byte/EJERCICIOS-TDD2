@@ -1,3 +1,5 @@
+"""Pruebas para la consulta de productos en el inventario."""
+
 def test_consultar_producto_integridad_datos(mi_inventario):
     """
     Valida que al consultar un producto existente:

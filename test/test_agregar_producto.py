@@ -1,3 +1,4 @@
+"""Pruebas para el registro de productos en el inventario."""
 
 
 def test_registrar_producto_validacion_profunda(mi_inventario):

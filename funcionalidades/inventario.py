@@ -1,15 +1,22 @@
+"""Funciones y clases para gestionar productos en un inventario en memoria."""
+
 from dataclasses import dataclass
 from typing import List, Optional
+
 
 @dataclass
 class Producto:
     """Representa un producto dentro del sistema de inventario."""
+
     id: int
     nombre: str
     cantidad: int
     precio: float
 
+
 class Inventario:
+    """Administra el registro, consulta y actualizacion de productos."""
+
     def __init__(self):
         """
         Inicializa el inventario con una estructura de datos en memoria.
@@ -29,7 +36,7 @@ class Inventario:
 
     def consultar_producto(self, producto_id: int) -> Optional[Producto]:
         """
-        Busca un producto por su identificador único. 
+        Busca un producto por su identificador único.
         Retorna el objeto Producto si existe, de lo contrario retorna None.
         """
         return self._productos.get(producto_id)
@@ -41,7 +48,7 @@ class Inventario:
         """
         if producto_id not in self._productos:
             raise ValueError("Error: Producto no encontrado en el inventario.")
-        
+
         producto = self._productos[producto_id]
         producto.cantidad = nueva_cantidad
         return producto
