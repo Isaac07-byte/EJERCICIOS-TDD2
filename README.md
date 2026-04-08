@@ -1,222 +1,445 @@
-# 📦 Sistema de Gestión de Inventario (TDD) - Actividad 2
+# 📦 Taller TDD - Desarrollo Guiado por Pruebas
 
-Este proyecto implementa un sistema de inventario simplificado utilizando la metodología **TDD (Test-Driven Development)**, desarrollado como parte de la formación en **Análisis y Desarrollo de Software (ADSO)** en el SENA - Regional Bolívar.
-
-## 👥 Aprendices
-* **Isaac Chico**
-* **Michael Vergara**
-* **Ficha:** 2995985
-* **Instructora:** Mara Sofía Cabrales
+> **Metodología Test-Driven Development (TDD)** - Aplicada en todas las actividades
 
 ---
 
-## 🛠️ 1. Análisis de Funcionalidades
-Antes de iniciar la codificación, se identificaron las operaciones esenciales que el sistema debe soportar para garantizar un diseño incremental y robusto:
+## 🏢 Información Institucional
 
-1.  **Registrar Producto:** * *Descripción:* Agregar un nuevo producto al sistema con un nombre, cantidad y precio.
-    * *Validación:* El sistema debe asignar un ID único automáticamente.
-2.  **Consultar Producto:** * *Descripción:* Buscar un producto específico mediante su ID único.
-    * *Validación:* Retornar los datos del producto o un valor nulo si no existe.
-3.  **Actualizar Cantidad:** * *Descripción:* Modificar el stock disponible de un producto existente.
-    * *Validación:* Debe lanzar un error (ValueError) si el ID del producto no es válido.
-4.  **Listar Inventario:** * *Descripción:* Obtener una lista completa de todos los productos registrados.
-    * *Validación:* Verificar que el tamaño de la lista coincida con el número de registros realizados.
+```
+ANÁLISIS Y DESARROLLO DE SOFTWARE
+CENTRO PARA LA INDUSTRIA PETROQUÍMICA 
+SENA - REGIONAL BOLÍVAR
 
----
+APRENDICES:
+ISAAC CHICO                 MICHAEL VERGARA
 
-## 🚀 2. Configuración del Entorno
-
-### Requisitos Técnicos
-* **Lenguaje:** Python 3.13+
-* **Framework de Pruebas:** Pytest 9.0.1
-* **Control de Versiones:** Git
-
-### Instalación y Ejecución
-1.  **Clonar el repositorio:**
-    ```bash
-    git clone <https://github.com/Isaac07-byte/EJERCICIOS-TDD2.git>
-    cd "EJERCICIOS TDD2"
-    ```
-2.  **Activar entorno virtual:**
-    ```bash
-    # Windows
-    .venv\Scripts\activate
-    ```
-3.  **Instalar dependencias:**
-    ```bash
-    pip install -r requirements.txt
-    ```
-4.  **Ejecutar Pruebas Automatizadas (Ciclo TDD):**
-    ```bash
-    python -m pytest -v
-    ```
+FICHA: 2995985
+INSTRUCTORA: MARA SOFÍA CABRALES
+FECHA: 23/03/2026
+CARTAGENA – COLOMBIA
+```
 
 ---
 
-## 🔄 3. Ciclo TDD Aplicado
+## 📋 Tabla de Contenidos
+
+1. [Actividad 1: Kata Sencillo (Suma y Resta)](#-actividad-1-kata-sencillo)
+2. [Actividad 2: Sistema de Gestión de Inventario](#-actividad-2-sistema-de-gestión-de-inventario)
+3. [Actividad 3: Diseño de Casos de Prueba](#-actividad-3-diseño-de-casos-de-prueba)
+
+---
+
+## 🔴🟢🟡 Actividad 1: Kata Sencillo
+
+### Descripción
+Cada integrante desarrolló un kata sencillo siguiendo el ciclo TDD:
+- **Escribir un test que falle (RED)**
+- **Ejecutar**
+- **Escribir código mínimo (GREEN)**
+- **Refactorizar**
+- **Ejecutar nuevamente**
+
+> [!NOTE]
+> No se permite escribir código funcional sin que exista primero un test fallido.
+
+---
+
+### 📊 Evaluación SUMA
+
+#### ¿La prueba realmente falla? (Fase RED)
+**SÍ** - La fase RED se cumple correctamente.
+
+Al ejecutar el test antes de implementar la función `sumar()`, el test **falla** con el error:
+
+```
+ImportError: cannot import name 'sumar' from 'suma'
+```
+
+El test definido fue:
+```python
+def test_sumar_dos_numeros():
+    from suma import sumar
+    assert sumar(2, 3) == 5
+```
+
+El test falla porque la función `sumar()` aún no existe. Este error confirma que el test está correctamente diseñado y detecta la ausencia de la funcionalidad.
+
+#### ¿El código es mínimo? (Fase GREEN)
+**SÍ** - Código mínimo en fase GREEN
+
+```python
+def sumar(a, b):
+    return a + b
+```
+
+Esta implementación contiene únicamente la lógica necesaria para que el test pase. No hay validaciones adicionales, ni estructuras complejas. Cumple con el principio de TDD: escribir la menor cantidad de código posible para cumplir el comportamiento esperado.
+
+#### ¿Se refactorizó o solo se dejó funcionando? (Fase REFACTOR)
+**SÍ** - Se realizó refactorización
+
+```python
+def sumar(a, b):
+    """
+    Retorna la suma de dos números.
+    
+    Args:
+        a (int/float): Primer número
+        b (int/float): Segundo número
+    
+    Returns:
+        int/float: Resultado de a + b
+    
+    Raises:
+        TypeError: Si los parámetros no son numéricos
+    """
+    if not isinstance(a, (int, float)):
+        raise TypeError(f"El primer argumento debe ser número, no {type(a).__name__}")
+    if not isinstance(b, (int, float)):
+        raise TypeError(f"El segundo argumento debe ser número, no {type(b).__name__}")
+    
+    return a + b
+```
+
+> [!IMPORTANT]
+> **Mejoras del Refactor:**
+> - Manejo de errores: Se añadió validación de tipos
+> - Documentación: Se agregaron docstrings completos
+> - Cumplimiento de contrato: El código es más robusto
+
+---
+
+### 📊 Evaluación RESTA
+
+#### ¿La prueba realmente falla? (Fase RED)
+**SÍ** - La fase RED se cumple correctamente.
+
+Al ejecutar el test antes de implementar la función `restar()`, el test **falla** con el error:
+
+```
+ImportError: cannot import name 'restar' from 'resta'
+```
+
+El test definido fue:
+```python
+def test_restar_dos_numeros():
+    from resta import restar
+    assert restar(10, 4) == 6
+```
+
+El test falla porque la función `restar()` aún no existe, confirmando que la metodología TDD se aplicó correctamente.
+
+#### ¿El código es mínimo? (Fase GREEN)
+**SÍ** - Código mínimo en fase GREEN
+
+```python
+def restar(a, b):
+    return a - b
+```
+
+Esta implementación es la solución más simple posible que hace pasar el test. Solo contiene la operación esencial sin ninguna lógica adicional.
+
+#### ¿Se refactorizó o solo se dejó funcionando? (Fase REFACTOR)
+**SÍ** - Se aplicó una mejora estructural
+
+```python
+def restar(a, b):
+    """
+    Retorna la resta de dos números (a - b).
+    
+    Args:
+        a (int/float): Primer número (minuendo)
+        b (int/float): Segundo número (sustraendo)
+    
+    Returns:
+        int/float: Resultado de a - b
+    
+    Raises:
+        TypeError: Si los parámetros no son numéricos
+    """
+    if not isinstance(a, (int, float)):
+        raise TypeError(f"El primer argumento debe ser número, no {type(a).__name__}")
+    if not isinstance(b, (int, float)):
+        raise TypeError(f"El segundo argumento debe ser número, no {type(b).__name__}")
+    
+    return a - b
+```
+
+> [!TIP]
+> La refactorización incluyó validación de tipos, documentación completa y manejo de errores, manteniendo la consistencia con el módulo de suma.
+
+---
+
+### ✅ Resultado de Tests
+
+```
+test_sumar_numeros_exito PASSED
+test_restar_numeros_exito PASSED  
+test_entrada_invalida PASSED
+```
+
+---
+
+## 📦 Actividad 2: Sistema de Gestión de Inventario
+
+### Descripción
+Sistema simplificado de gestión de inventario desarrollado con metodología TDD, utilizando estructuras de datos en memoria.
+
+**Funcionalidades implementadas:**
+- ✅ Registrar un producto en el inventario
+- ✅ Actualizar la cantidad disponible de un producto
+- ✅ Consultar la información de un producto
+- ✅ Listar los productos registrados
+
+---
+
+### 🔧 Análisis de Funcionalidades
+
+| # | Funcionalidad | Descripción | Validación |
+|---|---------------|-------------|-------------|
+| 1 | **Registrar Producto** | Agregar un nuevo producto con nombre, cantidad y precio | Asignar ID único automáticamente |
+| 2 | **Consultar Producto** | Buscar producto mediante ID | Retornar datos o None si no existe |
+| 3 | **Actualizar Cantidad** | Modificar el stock disponible | Lanzar error si ID no es válido |
+| 4 | **Listar Inventario** | Obtener lista completa de productos | Verificar cantidad de registros |
+
+---
+
+### 🔄 Ciclo TDD Aplicado
+
 Para cada funcionalidad se respetó estrictamente el flujo:
 
-* **Fase RED:** Se escribió la prueba unitaria en la carpeta `test/` antes de que la lógica existiera. Se ejecutó `pytest` y se confirmó el fallo (Estandarización del error).
-* **Fase GREEN:** Se implementó el código mínimo necesario en `src/inventario.py` para que la prueba pasara.
-* **Fase REFACTOR:** Se optimizó el código (uso de `@dataclass`, diccionarios para búsquedas rápidas y manejo de excepciones) asegurando que los tests se mantuvieran en verde.
+1. **Fase RED:** Se escribió la prueba unitaria antes de que la lógica existiera. Se ejecutó `pytest` y se confirmó el fallo.
+2. **Fase GREEN:** Se implementó el código mínimo necesario para que la prueba pasara.
+3. **Fase REFACTOR:** Se optimizó el código (uso de `@dataclass`, diccionarios, manejo de excepciones) asegurando que los tests se mantuvieran en verde.
+
+> [!WARNING]
+> No se permite escribir código funcional sin que exista primero un test fallido.
 
 ---
 
-## 📂 4. Estructura del Proyecto
+### 📂 Estructura del Proyecto
 
+```
 EJERCICIOS TDD2/
-├── funcionalidades/      # Lógica de la aplicación
-│   ├── inventario.py    # Clase y lógica de inventario
-│   ├── suma.py          # Lógica de suma
-│   └── resta.py         # Lógica de resta
-├── test/                # Pruebas automatizadas (Pytest)
+├── funcionalidades/           # Lógica de la aplicación
+│   ├── inventario.py        # Clase y lógica de inventario (Actividad 2)
+│   ├── suma.py             # Funciones de suma (Actividad 1)
+│   ├── resta.py            # Funciones de resta (Actividad 1)
+│   └── pedido.py           # Sistema de pedidos (Actividad 3)
+├── test/                    # Pruebas automatizadas (Pytest)
 │   ├── test_actualizar_cantidad.py
 │   ├── test_agregar_producto.py
+│   ├── test_agregar_producto_invalido.py
+│   ├── test_calcular_total.py
 │   ├── test_consultar_producto.py
+│   ├── test_crear_pedido.py
+│   ├── test_descuento_invalido.py
+│   ├── test_descuento_valido.py
 │   ├── test_listar_productos.py
+│   ├── test_multiples_productos.py
+│   ├── test_sin_productos.py
 │   ├── test_suma.py
-│   └── test_resta.py
-├── .gitignore          # Archivos excluidos del control de versiones
-├── README.md           # Documentación del proyecto
-└── requirements.txt    # Dependencias (pytest==9.0.1)
-
-## 📝 5. Bitácora Reflexiva
-
-### Micro-funcionalidad: Registrar un producto en el inventario
-
-**Objetivo:** Verificar que el sistema permita crear y almacenar un producto con nombre, cantidad, precio e identificador.
-
-**RED**
-
-* Qué se esperaba: validar que el método `registrar_producto` exista y permita almacenar correctamente un producto.
-* Qué falló: la prueba falló porque el método aún no estaba implementado.
-* Mensaje de pytest: la prueba indicó que la funcionalidad no existía.
-* Interpretación técnica: el fallo confirmó que el comportamiento esperado no estaba implementado, validando correctamente la fase RED.
-
-**GREEN**
-
-* Qué se implementó: se creó el método `registrar_producto` con la lógica mínima necesaria para almacenar el producto en memoria.
-* Código mínimo aplicado: inserción del producto en una estructura interna (diccionario) y asignación de un ID autoincremental.
-* Resultado de la prueba: la prueba pasó correctamente, validando atributos, persistencia e incremento de IDs.
-
-**REFACTOR**
-
-* Qué se mejoró: se reorganizó la lógica separando la creación del producto, la asignación de ID y el almacenamiento.
-* Motivo técnico: mejorar la legibilidad, mantenimiento y escalabilidad del código.
-* Verificación posterior: todas las pruebas continuaron en estado exitoso.
-
-**Dificultades encontradas:** definir un mecanismo consistente de ID autoincremental sin afectar la integridad del inventario.
-**Lecciones aprendidas:** en TDD, primero se valida el comportamiento esperado mediante pruebas antes de implementar la lógica.
-**Próximos pasos:** agregar validaciones para datos inválidos (nombre vacío, cantidad negativa, precio incorrecto).
-**Evidencia:** commits del test, implementación y ejecución exitosa de pytest.
+│   ├── test_resta.py
+│   └── conftest.py          # Configuración de pytest
+├── README.md                # Documentación del proyecto
+├── requirements.txt         # Dependencias (pytest==9.0.1)
+└── .gitignore              # Archivos excluidos
+```
 
 ---
 
-### Micro-funcionalidad: Consultar la información de un producto
+### 📝 Bitácora Reflexiva
 
-**Objetivo:** Verificar que el sistema retorne la información del producto cuando el ID existe y `None` cuando no existe.
+#### Micro-funcionalidad: Registrar un producto en el inventario
 
-**RED**
+**RED:**
+-Qué se esperaba: validar que el método `registrar_producto` exista y permita almacenar correctamente un producto.
+-Qué falló: la prueba falló porque el método aún no estaba implementado.
+-Mensaje de pytest: la prueba indicó que la funcionalidad no existía.
 
-* Qué se esperaba: validar el comportamiento del método `consultar_producto` para IDs válidos e inválidos.
-* Qué falló: la prueba falló porque el método no existía inicialmente.
-* Mensaje de pytest: error indicando ausencia del método.
-* Interpretación técnica: evidenció la necesidad de implementar la funcionalidad de consulta.
+**GREEN:**
+-Qué se implementó: se creó el método `registrar_producto` con la lógica mínima necesaria.
+-Código mínimo aplicado: inserción del producto en una estructura interna (diccionario) y asignación de un ID autoincremental.
 
-**GREEN**
-
-* Qué se implementó: se creó el método `consultar_producto` utilizando acceso directo al diccionario interno.
-* Código mínimo aplicado: `self._productos.get(producto_id)`.
-* Resultado de la prueba: el método retornó correctamente el objeto o `None` según el caso.
-
-**REFACTOR**
-
-* Qué se mejoró: se documentó el método y se definió claramente su comportamiento ante datos inexistentes.
-* Motivo técnico: mejorar claridad y mantenibilidad del código.
-* Verificación posterior: todas las pruebas permanecieron en estado verde.
-
-**Dificultades encontradas:** asegurar el manejo correcto de IDs inexistentes sin generar errores.
-**Lecciones aprendidas:** el uso de `.get()` permite manejar casos borde de forma simple y eficiente.
-**Próximos pasos:** evaluar validación de tipo para el identificador.
-**Evidencia:** pruebas automatizadas y ejecución exitosa.
+**REFACTOR:**
+-Qué se mejoró: se reorganizó la lógica separando la creación del producto, la asignación de ID y el almacenamiento.
+-Mejoras: uso de `@dataclass` para estructura de Producto.
 
 ---
 
-### Micro-funcionalidad: Actualizar la cantidad disponible de un producto
+#### Micro-funcionalidad: Consultar la información de un producto
 
-**Objetivo:** Verificar que el sistema permita modificar la cantidad de un producto existente manteniendo la integridad de los demás atributos.
+**RED:**
+-Qué se esperaba: validar el comportamiento del método `consultar_producto` para IDs válidos e inválidos.
+-Qué falló: la prueba falló porque el método no existía inicialmente.
 
-**RED**
+**GREEN:**
+-Qué se implementó: se creó el método `consultar_producto` utilizando acceso directo al diccionario interno.
+-Código mínimo aplicado: `self._productos.get(producto_id)`.
 
-* Qué se esperaba: validar que el método `actualizar_cantidad` modifique correctamente el stock.
-* Qué falló: la prueba falló porque el método no existía o no cumplía con las validaciones esperadas.
-* Mensaje de pytest: fallo por ausencia de implementación o error en aserciones.
-* Interpretación técnica: evidenció la necesidad de implementar una operación específica de actualización.
-
-**GREEN**
-
-* Qué se implementó: se añadió la lógica para ubicar el producto por ID y actualizar únicamente su cantidad.
-* Código mínimo aplicado: búsqueda en la estructura interna y modificación del atributo cantidad.
-* Resultado de la prueba: la actualización fue exitosa y consistente.
-
-**REFACTOR**
-
-* Qué se mejoró: se incorporaron validaciones para evitar cantidades negativas y manejar productos inexistentes mediante excepciones.
-* Motivo técnico: fortalecer la robustez y evitar estados inválidos.
-* Verificación posterior: todas las pruebas pasaron correctamente.
-
-**Dificultades encontradas:** manejo de errores cuando el producto no existe o la cantidad es inválida.
-**Lecciones aprendidas:** antes de modificar datos, es fundamental validar existencia y reglas de negocio.
-**Próximos pasos:** centralizar validaciones en métodos reutilizables.
-**Evidencia:** ejecución de pruebas con casos positivos y negativos.
+**REFACTOR:**
+-Qué se mejoró: se documentó el método y se definió claramente su comportamiento ante datos inexistentes.
+-Mejoras: validación de tipo para el identificador.
 
 ---
 
-### Micro-funcionalidad: Listar los productos registrados
+#### Micro-funcionalidad: Actualizar la cantidad disponible
 
-**Objetivo:** Confirmar que el sistema devuelva todos los productos almacenados en el inventario.
+**RED:**
+-Qué se esperaba: validar que el método `actualizar_cantidad` modifique correctamente el stock.
+-Qué falló: la prueba falló porque el método no existía.
 
-**RED**
+**GREEN:**
+-Qué se implementó: se añadió la lógica para ubicar el producto por ID y actualizar únicamente su cantidad.
 
-* Qué se esperaba: verificar que el método `listar_productos` existiera y retornara una colección de productos.
-* Qué falló: la prueba falló porque el método no estaba implementado.
-* Mensaje de pytest: error indicando ausencia del método.
-* Interpretación técnica: el sistema no contaba con una vista global del inventario.
-
-**GREEN**
-
-* Qué se implementó: se creó el método `listar_productos` para retornar los productos almacenados en memoria.
-* Código mínimo aplicado: retorno de la colección interna de productos.
-* Resultado de la prueba: se validó correctamente el contenido y cantidad de elementos.
-
-**REFACTOR**
-
-* Qué se mejoró: se revisó la estructura de retorno para mantener consistencia con otras operaciones.
-* Motivo técnico: facilitar la reutilización del método y mejorar diseño.
-* Verificación posterior: no se afectaron funcionalidades existentes.
-
-**Dificultades encontradas:** decidir si retornar copia o referencia de la colección.
-**Lecciones aprendidas:** la fase REFACTOR permite mejorar diseño sin alterar el comportamiento validado.
-**Próximos pasos:** evaluar inmutabilidad de la colección retornada.
-**Evidencia:** pruebas automatizadas y resultados exitosos.
+**REFACTOR:**
+-Qué se mejoró: se incorporaron validaciones para evitar cantidades negativas y manejar productos inexistentes mediante excepciones.
 
 ---
 
-## Resumen de la Bitácora
+#### Micro-funcionalidad: Listar los productos registrados
 
-Se aplicó el ciclo TDD de manera incremental para implementar las funcionalidades del sistema de inventario. En la fase RED se diseñaron pruebas que fallaron inicialmente, evidenciando la ausencia de funcionalidad. En la fase GREEN se desarrolló el código mínimo necesario para cumplir los requisitos. En la fase REFACTOR se mejoró la estructura del código sin afectar el comportamiento validado, manteniendo todas las pruebas en estado exitoso.
+**RED:**
+-Qué se esperaba: verificar que el método `listar_productos` existiera y retornara una colección de productos.
+-Qué falló: la prueba falló porque el método no estaba implementado.
+
+**GREEN:**
+-Qué se implementó: se creó el método `listar_productos` para retornar los productos almacenados en memoria.
+
+**REFACTOR:**
+-Qué se mejoró: se revisó la estructura de retorno para mantener consistencia, ordenando por ID.
 
 ---
 
-## Aprendizajes Clave
+## 📋 Actividad 3: Diseño de Casos de Prueba
 
-* TDD permite detectar errores antes de implementar funcionalidades.
-* El código mínimo en fase GREEN debe ser simple y funcional.
-* La refactorización mejora la calidad sin afectar el comportamiento validado.
-* El uso de diccionarios optimiza el acceso por ID.
-* Los casos borde deben definirse desde las pruebas.
-* La indentación en Python es crítica para la estructura del código.
-* Las pruebas automatizadas permiten detectar errores tempranos.
-* Validar datos de entrada previene fallos en ejecución.
-* La configuración de `.gitignore` mantiene el repositorio limpio.
-* El ciclo RED–GREEN–REFACTOR fortalece la disciplina de desarrollo.
+### Descripción del Sistema
+El sistema de gestión de pedidos permite:
+- Crear pedidos de clientes
+- Agregar productos al pedido con precio y cantidad
+- Calcular el total del pedido
+- Aplicar descuentos sobre el total
+
+El sistema valida entradas incorrectas, como precios o cantidades menores o iguales a cero, y descuentos fuera del rango permitido.
+
+---
+
+### 📑 Escenarios de Prueba
+
+| Escenario | Descripción | Entrada | Salida Esperada |
+|-----------|-------------|---------|-----------------|
+| 1 | Crear pedido | Nombre del cliente | Pedido creado con lista vacía |
+| 2 | Agregar producto válido | Nombre producto, precio >0, cantidad >0 | Producto agregado (True) |
+| 3 | Agregar producto inválido | Precio ≤0 o cantidad ≤0 | Producto no agregado (False) |
+| 4 | Calcular total con productos | Lista de productos | Total correcto (suma de precio*cantidad) |
+| 5 | Calcular total sin productos | Lista vacía | None |
+| 6 | Aplicar descuento válido | Porcentaje entre 0 y 100 | Total con descuento aplicado |
+| 7 | Aplicar descuento inválido | Porcentaje <0 o >100 | None |
+
+---
+
+### 🧪 Casos de Prueba Detallados
+
+| ID | Escenario | Entrada | Resultado Esperado |
+|----|-----------|---------|-------------------|
+| CP01 | Crear pedido | "Juan" | Pedido creado con lista vacía |
+| CP02 | Agregar producto válido | ("Producto1", 10000, 2) | True |
+| CP03 | Agregar producto inválido (precio) | ("Producto2", -100, 1) | False |
+| CP04 | Agregar producto inválido (cantidad) | ("Producto3", 1000, 0) | False |
+| CP05 | Calcular total | Producto1:10000x2, Producto2:5000x3 | 35000 |
+| CP06 | Múltiples productos | Producto1:10000x3, Producto2:5000x4 | 50000 |
+| CP07 | Sin productos | [] | None |
+| CP08 | Descuento válido 10% | Total=100000, porcentaje=10 | 90000 |
+| CP09 | Descuento 0% | Total=100000, porcentaje=0 | 100000 |
+| CP10 | Descuento 100% | Total=100000, porcentaje=100 | 0 |
+| CP11 | Descuento inválido >100 | Total=100000, porcentaje=150 | None |
+| CP12 | Descuento inválido negativo | Total=100000, porcentaje=-10 | None |
+
+---
+
+### 🎯 Casos Borde
+
+> [!CAUTION]
+> Los siguientes casos deben ser probados para asegurar la robustez del sistema:
+
+- Precio = 0
+- Cantidad = 0
+- Pedido sin productos
+- Descuento = 0%
+- Descuento = 100%
+- Descuento negativo
+- Descuento > 100%
+
+---
+
+### ✓ Validaciones del Sistema
+
+- ✅ No se permiten precios menores o iguales a 0
+- ✅ No se permiten cantidades menores o iguales a 0
+- ✅ El descuento debe estar entre 0 y 100
+- ✅ No se puede calcular el total sin productos
+
+---
+
+### 🚀 Configuración y Ejecución
+
+### Requisitos Técnicos
+- **Lenguaje:** Python 3.13+
+- **Framework de Pruebas:** Pytest 9.0.1
+- **Control de Versiones:** Git
+
+### Instalación
+```bash
+# Clonar el repositorio
+git clone https://github.com/Isaac07-byte/EJERCICIOS-TDD2.git
+
+# Activar entorno virtual (Windows)
+.venv\Scripts\activate
+
+# Instalar dependencias
+pip install -r requirements.txt
+```
+
+### Ejecutar Pruebas
+```bash
+python -m pytest -v
+```
+
+---
+
+## 🎓 Aprendizajes Clave
+
+> [!TIP]
+> Principios fundamentales aplicados en el taller:
+
+1. **TDD permite detectar errores antes de implementar funcionalidades**
+2. **El código mínimo en fase GREEN debe ser simple y funcional**
+3. **La refactorización mejora la calidad sin afectar el comportamiento validado**
+4. **El uso de diccionarios optimiza el acceso por ID**
+5. **Los casos borde deben definirse desde las pruebas**
+6. **Las pruebas automatizadas permiten detectar errores tempranos**
+7. **Validar datos de entrada previene fallos en ejecución**
+8. **El ciclo RED–GREEN–REFACTOR fortalece la disciplina de desarrollo**
+
+---
+
+## 📊 Conclusiones
+
+### Actividad 1 (Kata)
+- Se siguió correctamente la metodología TDD
+- Los tests actúan como especificación del comportamiento
+- La refactorización mejora la mantenibilidad sin alterar la funcionalidad
+
+### Actividad 2 (Inventario)
+- El sistema fue desarrollado de manera incremental
+- Cada funcionalidad pasó por las tres fases de TDD
+- Se logró un código robusto y testeable
+
+### Actividad 3 (Casos de Prueba)
+- El diseño de casos de prueba permite validar el correcto funcionamiento
+- Se cubrieron escenarios normales y casos borde
+- Se garantizó el manejo de entradas inválidas
+
+---
+
+*Documento desarrollado como parte del proceso de formación en Análisis y Desarrollo de Software - SENA Regional Bolívar*
